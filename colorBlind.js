@@ -7,10 +7,10 @@
             "options": [
                   "12",
                   "2",
-                  "1",
+                  "22",
                   "Nothing is visible"
             ],
-            "answer": "12"
+            "answer": "Nothing is visible"
       },
       {
             "category": "Color Blindness",
@@ -18,12 +18,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/M0KP83Q/color-Blind7.webp",
             "options": [
-                  "74",
-                  "21",
-                  "4",
-                  "No number present"
+                  "6",
+                  "66",
+                  "26",
+                  "16"
             ],
-            "answer": "74"
+            "answer": "6"
       },
       {
             "category": "Color Blindness",
@@ -34,7 +34,7 @@
                   "6",
                   "9",
                   "0",
-                  "Nothing is clear"
+                  "Nothing is visible"
             ],
             "answer": "6"
       },
@@ -44,12 +44,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/NdzSW8d0/color-Blind6.webp",
             "options": [
-                  "37",
-                  "7",
-                  "3",
-                  "No number present"
+                  "9",
+                  "5",
+                  "8",
+                  "7"
             ],
-            "answer": "37"
+            "answer": "8"
       },
       {
             "category": "Color Blindness",
@@ -57,12 +57,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/5h0VBTNJ/color-Blind4.webp",
             "options": [
-                  "58",
-                  "5",
-                  "8",
-                  "Nothing is clear"
+                  "29",
+                  "92",
+                  "39",
+                  "26"
             ],
-            "answer": "58"
+            "answer": "29"
       },
       {
             "category": "Color Blindness",
@@ -70,12 +70,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/20gD8wLr/color-Blind10.webp",
             "options": [
-                  "5",
-                  "3",
-                  "2",
-                  "No number present"
+                  "22",
+                  "12",
+                  "32",
+                  "10"
             ],
-            "answer": "5"
+            "answer": "12"
       },
       {
             "category": "Color Blindness",
@@ -83,12 +83,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/5xxFwyGX/color-Blind2.webp",
             "options": [
-                  "15",
-                  "17",
-                  "5",
-                  "Nothing is visible"
+                  "54",
+                  "84",
+                  "55",
+                  "45"
             ],
-            "answer": "15"
+            "answer": "45"
       },
       {
             "category": "Color Blindness",
@@ -96,12 +96,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/39ThDx6k/color-Blind1-8.webp",
             "options": [
-                  "8",
-                  "3",
-                  "0",
-                  "Nothing is clear"
+                  "1",
+                  "6",
+                  "16",
+                  "26"
             ],
-            "answer": "8"
+            "answer": "16"
       },
       {
             "category": "Color Blindness",
@@ -109,12 +109,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/4wMFCCks/color-Blind3.webp",
             "options": [
-                  "29",
-                  "70",
+                  "9",
+                  "5",
                   "2",
-                  "No number present"
+                  "15"
             ],
-            "answer": "29"
+            "answer": "5"
       },
       {
             "category": "Color Blindness",
@@ -122,12 +122,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/pjLJHsCy/color-Blind8.webp",
             "options": [
-                  "26",
-                  "6",
-                  "2",
-                  "Nothing is clear"
+                  "73",
+                  "21",
+                  "74",
+                  "63"
             ],
-            "answer": "26"
+            "answer": "73"
       },
       {
             "category": "Color Blindness",
@@ -135,12 +135,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/jP4gQzcm/color-Blind1-11.webp",
             "options": [
-                  "45",
-                  "4",
-                  "5",
-                  "No number present"
+                  "6",
+                  "9",
+                  "3",
+                  "16"
             ],
-            "answer": "45"
+            "answer": "6"
       },
       {
             "category": "Color Blindness",
@@ -149,11 +149,11 @@
             "image": "https://i.ibb.co.com/vvmWnd1J/color-Blind13.webp",
             "options": [
                   "5",
-                  "2",
-                  "3",
-                  "Nothing is visible"
+                  "35",
+                  "15",
+                  "25"
             ],
-            "answer": "5"
+            "answer": "15"
       },
       {
             "category": "Color Blindness",
@@ -161,12 +161,12 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/6RFC0kgJ/color-Blind9.webp",
             "options": [
-                  "7",
-                  "1",
-                  "4",
-                  "Nothing is clear"
+                  "66",
+                  "36",
+                  "06",
+                  "26"
             ],
-            "answer": "7"
+            "answer": "26"
       },
       {
             "category": "Color Blindness",
@@ -175,11 +175,11 @@
             "image": "https://i.ibb.co.com/kVYKwdLr/color-Blind11.webp",
             "options": [
                   "16",
-                  "1",
                   "6",
-                  "No number present"
+                  "26",
+                  "36"
             ],
-            "answer": "16"
+            "answer": "6"
       },
       {
             "category": "Color Blindness",
@@ -187,11 +187,11 @@
             "question": "What number do you see in the image?",
             "image": "https://i.ibb.co.com/qY3GB6Kd/color-Blind12.webp",
             "options": [
-                  "73",
-                  "7",
+                  "71",
+                  "17",
                   "3",
-                  "Nothing is clear"
+                  "7"
             ],
-            "answer": "73"
+            "answer": "7"
       }
 ]

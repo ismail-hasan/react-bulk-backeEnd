@@ -23,6 +23,7 @@ const client = new MongoClient(uri, {
 
 let quizCollection;
 let colorBlindCollection;
+let bookCollection
 
 async function run() {
       try {
@@ -31,6 +32,7 @@ async function run() {
             const database = client.db("ReviewPlexDB");
             quizCollection = database.collection("quizzes");
             colorBlindCollection = database.collection("colorBlind");
+            bookCollection = database.collection("epsBooks");
 
             console.log("Pinged your deployment. You successfully connected to MongoDB!");
       } catch (error) {
@@ -80,19 +82,27 @@ app.get("/quiz", async (req, res) => {
 // 🎯 Shudhu Color Blindness er data get korar jonno notun route
 app.get("/color", async (req, res) => {
       try {
-            // কালেকশন নাম হবে colorBlindCollection এবং পুরো ডাটা আনার জন্য find({}) ফাঁকা অবজেক্ট হবে
             const cursor = colorBlindCollection.find({});
             const result = await cursor.toArray();
-
             res.send(result);
+
       } catch (error) {
             console.error(error);
             res.status(500).send({ message: "MongoDB thake color blindness data ante somossa hoyeche" });
       }
 });
+app.get("/book", async (req, res) => {
+      try {
+            const cursor = bookCollection.find({});
+            const result = await cursor.toArray();
+            res.send(result);
 
+      } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "MongoDB thake color book data ante somossa hoyeche" });
+      }
+});
 
-// ⚠️ মোবাইল থেকে কানেক্ট করার জন্য '0.0.0.0' যোগ করা হয়েছে
 app.listen(port, '0.0.0.0', () => {
       console.log(`Server is running on port ${port} and open to local network`);
 });
