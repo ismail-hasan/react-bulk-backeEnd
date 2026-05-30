@@ -22,20 +22,21 @@ const client = new MongoClient(uri, {
 });
 
 let quizCollection;
+let colorBlindCollection;
 
 async function run() {
       try {
-          
-            await client.connect();
 
+            await client.connect();
             const database = client.db("ReviewPlexDB");
             quizCollection = database.collection("quizzes");
+            colorBlindCollection = database.collection("colorBlind");
 
             console.log("Pinged your deployment. You successfully connected to MongoDB!");
       } catch (error) {
             console.error("MongoDB কানেকশনে ভুল হয়েছে:", error);
       }
-     
+
 }
 run().catch(console.dir);
 
@@ -54,6 +55,7 @@ app.post("/add-quiz", async (req, res) => {
       try {
             const result = await quizCollection.insertMany(localQuizzes);
             res.send(result);
+
       } catch (error) {
             res.status(500).send({ message: "Data insert করতে সমস্যা হয়েছে" });
       }
@@ -68,6 +70,20 @@ app.get("/quiz", async (req, res) => {
             res.send(result);
       } catch (error) {
             res.status(500).send({ message: "MongoDB থেকে ডেটা আনতে সমস্যা হয়েছে" });
+      }
+});
+
+// 🎯 Shudhu Color Blindness er data get korar jonno notun route
+app.get("/color", async (req, res) => {
+      try {
+            // কালেকশন নাম হবে colorBlindCollection এবং পুরো ডাটা আনার জন্য find({}) ফাঁকা অবজেক্ট হবে
+            const cursor = colorBlindCollection.find({});
+            const result = await cursor.toArray();
+
+            res.send(result);
+      } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "MongoDB thake color blindness data ante somossa hoyeche" });
       }
 });
 

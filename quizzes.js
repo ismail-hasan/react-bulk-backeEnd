@@ -39,6 +39,18 @@ const quizzes = [
             ],
             answer: "ধন্যবাদ",
       },
+      {
+            category: "Listening",
+            level: "Beginner",
+            question: "Ismail এর অর্থ কী?",
+            options: [
+                  "ধন্যবাদ",
+                  "দুঃখিত",
+                  "হ্যালো",
+                  "বিদায়",
+            ],
+            answer: "ধন্যবাদ",
+      },
 
       {
             category: "Listening",
