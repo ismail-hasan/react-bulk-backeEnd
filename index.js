@@ -69,7 +69,11 @@ app.get("/quiz", async (req, res) => {
             const result = await cursor.toArray();
             res.send(result);
       } catch (error) {
-            res.status(500).send({ message: "MongoDB থেকে ডেটা আনতে সমস্যা হয়েছে" });
+            console.error("MongoDB Error:", error);
+
+            res.status(500).send({
+                  error: error.message
+            });
       }
 });
 
