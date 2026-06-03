@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 });
 
 // লোকাল ফাইল থেকে ডেটা ইমপোর্ট (যদি একবারে ডাটাবেজে পুশ করতে চাও)
-const localQuizzes = require("./quizzes.js");
+const localQuizzes = require("./public/quizzes.js");
 
 // ডাটাবেজে কুইজ আপলোড করার জন্য (একবার হিট করলেই ডাটাবেজে সেভ হবে)
 app.post("/add-quiz", async (req, res) => {
