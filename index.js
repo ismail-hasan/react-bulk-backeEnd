@@ -1,18 +1,16 @@
 const express = require('express');
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const cors = require('cors');
+require("dotenv").config();
 
 const app = express();
-require("dotenv").config();
-const cors = require('cors');
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
-
-const uri = `mongodb://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0-shard-00-00.gbi1i.mongodb.net:27017,cluster0-shard-00-01.gbi1i.mongodb.net:27017,cluster0-shard-00-02.gbi1i.mongodb.net:27017/?ssl=true&replicaSet=atlas-codyet-shard-0&authSource=admin&appName=Cluster0`;
-
-
+// ১. শর্ট এবং ক্লিন ক্লাউড ইউআরআই
+const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0.gbi1i.mongodb.net/?appName=Cluster0`;
 
 const client = new MongoClient(uri, {
       serverApi: {
@@ -22,45 +20,50 @@ const client = new MongoClient(uri, {
       }
 });
 
-async function run() {
+// গ্লোবাল ভেরিয়েবল (যেন নিচের রুটগুলো ডাটাবেজ এক্সেস করতে পারে)
+let colorCollection;
+let quizCollection;
+
+async function connectDB() {
       try {
             await client.connect();
             console.log("You successfully connected to MongoDB!");
 
-            // তোমার ডাটাবেজ ও কালেকশন এখানে ডিফাইন করো
             const database = client.db("EpsTopicHero");
-            const colorCollection = database.collection("colorCollection");
-            const quizCollection = database.collection("quizCollection");
-
-
-            app.get('/color', async (req, res) => {
-                  try {
-                        const result = await colorCollection.find().toArray();
-                        res.send(result);
-                  } catch (error) {
-                        console.error("Error fetching colors:", error);
-                        res.status(500).send({ message: "color missing" });
-                  }
-            });
-            app.get('/quiz', async (req, res) => {
-                  try {
-                        const result = await quizCollection.find().toArray();
-                        res.send(result);
-                  } catch (error) {
-                        console.error("Error fetching quiz:", error);
-                        res.status(500).send({ message: "quiz missing" });
-                  }
-            });
-
+            colorCollection = database.collection("colorCollection");
+            quizCollection = database.collection("quizCollection");
       } catch (error) {
             console.error("Database connection error:", error);
       }
-
 }
-run().catch(console.dir);
+connectDB().catch(console.dir);
 
+
+// ২. রুটগুলোকে run() বা connectDB() ফাংশনের বাইরে স্বাধীনভাবে রাখা হলো
 app.get('/', (req, res) => {
       res.send('Server is running!');
+});
+
+app.get('/color', async (req, res) => {
+      try {
+            if (!colorCollection) return res.status(500).send({ message: "Database connection not ready" });
+            const result = await colorCollection.find().toArray();
+            res.send(result);
+      } catch (error) {
+            console.error("Error fetching colors:", error);
+            res.status(500).send({ message: "color missing" });
+      }
+});
+
+app.get('/quiz', async (req, res) => {
+      try {
+            if (!quizCollection) return res.status(500).send({ message: "Database connection not ready" });
+            const result = await quizCollection.find().toArray();
+            res.send(result);
+      } catch (error) {
+            console.error("Error fetching quiz:", error);
+            res.status(500).send({ message: "quiz missing" });
+      }
 });
 
 app.listen(PORT, () => {
