@@ -3,7 +3,6 @@ const cors = require('cors');
 require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
-// লোকাল ডেনএস ফিক্স (Vercel-এ এটি কোনো সমস্যা করবে না, লোকালেও কাজ করবে)
 try {
       const dns = require("node:dns/promises");
       dns.setServers(["8.8.8.8", "1.1.1.1"]);
@@ -14,19 +13,11 @@ try {
 const app = express();
 const port = 5001;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// MongoDB URI (.env ফাইল থেকে নেওয়া নিরাপদ, নাহলে আপনার স্ট্রিংটিই থাকবে)
-// const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.gbi1i.mongodb.net/?appName=Cluster0`;
 const uri = `mongodb+srv://DemoEPS:fiCN8hJQD79MHJld@cluster0.gbi1i.mongodb.net/?appName=Cluster0`;
-// MONGO_USER = DemoEPS
-// MONGO_PASS = fiCN8hJQD79MHJld
 
-
-// const uri = `mongodb+srv://DemoEPS:fiCN8hJQD79MHJld@cluster0.gbi1i.mongodb.net/?appName=Cluster0`;
-// মঙ্গোডিবি ক্লায়েন্ট (কানেকশন পুলিং অপটিমাইজড)
 const client = new MongoClient(uri, {
       serverApi: {
             version: ServerApiVersion.v1,
@@ -35,25 +26,22 @@ const client = new MongoClient(uri, {
       }
 });
 
-// Serverless-এর জন্য ডাটাবেজ কানেকশন হ্যান্ডলার ফাংশন
-// let db = null;
+let db = null; // এই ডিফাইনটা মিসিং ছিল
+
 async function connectDB() {
-      // if (db) return db; // অলরেডি কানেক্টেড থাকলে নতুন করে কানেক্ট করবে না
+      if (db) return db; // অলরেডি কানেক্টেড থাকলে সেটাই রিটার্ন করবে
       await client.connect();
       db = client.db("ReviewPlexDB");
       console.log("Successfully connected to MongoDB!");
       return db;
 }
-// ==================== ROUTERS ==================== 
+
+const localQuizzes = require("./public/quizzes.js");
 
 app.get('/', (req, res) => {
       res.send('Quiz Server is Running!');
 });
 
-// লোকাল ফাইল থেকে ডেটা ইমপোর্ট
-const localQuizzes = require("./public/quizzes.js");
-
-// ডাটাবেজে কুইজ আপলোড করার জন্য
 app.post("/add-quiz", async (req, res) => {
       try {
             const database = await connectDB();
@@ -66,10 +54,9 @@ app.post("/add-quiz", async (req, res) => {
       }
 });
 
-// 🎯 কুইজ গেট রাউট
 app.get("/quiz", async (req, res) => {
       try {
-            const database = await connectDB(); // প্রতি রিকোয়েস্টে কানেকশন চেক করবে
+            const database = await connectDB();
             const quizCollection = database.collection("quizzes");
             const result = await quizCollection.find({}).toArray();
             res.send(result);
@@ -79,7 +66,6 @@ app.get("/quiz", async (req, res) => {
       }
 });
 
-// 🎯 কালার ব্লাইন্ডনেস রাউট
 app.get("/color", async (req, res) => {
       try {
             const database = await connectDB();
@@ -92,8 +78,6 @@ app.get("/color", async (req, res) => {
       }
 });
 
-
-// 🎯 বই এর রাউট
 app.get("/book", async (req, res) => {
       try {
             const database = await connectDB();
@@ -102,10 +86,9 @@ app.get("/book", async (req, res) => {
             res.send(result);
       } catch (error) {
             console.error(error);
-            res.status(500).send({ message: "MongoDB thake  book data ante somossa hoyeche" });
+            res.status(500).send({ message: "MongoDB thake book data ante somossa hoyeche" });
       }
 });
-
 
 if (process.env.NODE_ENV !== 'production') {
       app.listen(port, '0.0.0.0', () => {
@@ -113,4 +96,4 @@ if (process.env.NODE_ENV !== 'production') {
       });
 }
 
-module.exports = app; 
+module.exports = app;
