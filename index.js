@@ -19,7 +19,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB URI (.env ফাইল থেকে নেওয়া নিরাপদ, নাহলে আপনার স্ট্রিংটিই থাকবে)
-const uri = process.env.MONGODB_URI || "mongodb+srv://DemoEPS:fiCN8hJQD79MHJld@cluster0.gbi1i.mongodb.net/?appName=Cluster0";
+const uri = process.env.MONGODB_URI || `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.gbi1i.mongodb.net/?appName=Cluster0`;
 
 // মঙ্গোডিবি ক্লায়েন্ট (কানেকশন পুলিং অপটিমাইজড)
 const client = new MongoClient(uri, {
@@ -85,6 +85,17 @@ app.get("/color", async (req, res) => {
       } catch (error) {
             console.error(error);
             res.status(500).send({ message: "MongoDB thake color blindness data ante somossa hoyeche" });
+      }
+});
+app.get("/vocabulary", async (req, res) => {
+      try {
+            const database = await connectDB();
+            const vocabularyCollection = database.collection("vocabulary");
+            const result = await vocabularyCollection.find({}).toArray();
+            res.send(result);
+      } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "MongoDB thake color vocabulary data ante somossa hoyeche" });
       }
 });
 
