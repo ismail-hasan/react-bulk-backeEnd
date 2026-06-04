@@ -65,6 +65,17 @@ app.get("/quiz", async (req, res) => {
             res.status(500).send({ error: error.message });
       }
 });
+app.get("/vocabulary", async (req, res) => {
+      try {
+            const database = await connectDB();
+            const vocabularyollection = database.collection("vocabularyollection");
+            const result = await vocabularyollection.find({}).toArray();
+            res.send(result);
+      } catch (error) {
+            console.error("MongoDB Error:", error);
+            res.status(500).send({ error: error.message });
+      }
+});
 
 app.get("/color", async (req, res) => {
       try {
