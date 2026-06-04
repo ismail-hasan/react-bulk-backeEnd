@@ -39,7 +39,6 @@ async function connectDB() {
       console.log("Successfully connected to MongoDB!");
       return db;
 }
-
 // ==================== ROUTERS ==================== 
 
 app.get('/', (req, res) => {
@@ -87,17 +86,7 @@ app.get("/color", async (req, res) => {
             res.status(500).send({ message: "MongoDB thake color blindness data ante somossa hoyeche" });
       }
 });
-app.get("/vocabulary", async (req, res) => {
-      try {
-            const database = await connectDB();
-            const vocabularyCollection = database.collection("vocabulary");
-            const result = await vocabularyCollection.find({}).toArray();
-            res.send(result);
-      } catch (error) {
-            console.error(error);
-            res.status(500).send({ message: "MongoDB thake color vocabulary data ante somossa hoyeche" });
-      }
-});
+
 
 // 🎯 বই এর রাউট
 app.get("/book", async (req, res) => {
@@ -112,11 +101,11 @@ app.get("/book", async (req, res) => {
       }
 });
 
-// লোকাল রান করার জন্য listen (Vercel এটি অটো হ্যান্ডেল করে)
+
 if (process.env.NODE_ENV !== 'production') {
       app.listen(port, '0.0.0.0', () => {
             console.log(`Server is running on port ${port}`);
       });
 }
 
-module.exports = app; // Vercel-এর সার্ভারলেস ফাংশনের জন্য এক্সপোর্ট প্রয়োজন
+module.exports = app; 
