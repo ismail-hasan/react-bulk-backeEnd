@@ -12,15 +12,20 @@ try {
 }
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 5001;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // MongoDB URI (.env ফাইল থেকে নেওয়া নিরাপদ, নাহলে আপনার স্ট্রিংটিই থাকবে)
-const uri = process.env.MONGODB_URI || `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.gbi1i.mongodb.net/?appName=Cluster0`;
+// const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.gbi1i.mongodb.net/?appName=Cluster0`;
+const uri = `mongodb+srv://DemoEPS:fiCN8hJQD79MHJld@cluster0.gbi1i.mongodb.net/?appName=Cluster0`;
+// MONGO_USER = DemoEPS
+// MONGO_PASS = fiCN8hJQD79MHJld
 
+
+// const uri = `mongodb+srv://DemoEPS:fiCN8hJQD79MHJld@cluster0.gbi1i.mongodb.net/?appName=Cluster0`;
 // মঙ্গোডিবি ক্লায়েন্ট (কানেকশন পুলিং অপটিমাইজড)
 const client = new MongoClient(uri, {
       serverApi: {
@@ -31,9 +36,9 @@ const client = new MongoClient(uri, {
 });
 
 // Serverless-এর জন্য ডাটাবেজ কানেকশন হ্যান্ডলার ফাংশন
-let db = null;
+// let db = null;
 async function connectDB() {
-      if (db) return db; // অলরেডি কানেক্টেড থাকলে নতুন করে কানেক্ট করবে না
+      // if (db) return db; // অলরেডি কানেক্টেড থাকলে নতুন করে কানেক্ট করবে না
       await client.connect();
       db = client.db("ReviewPlexDB");
       console.log("Successfully connected to MongoDB!");
@@ -97,7 +102,7 @@ app.get("/book", async (req, res) => {
             res.send(result);
       } catch (error) {
             console.error(error);
-            res.status(500).send({ message: "MongoDB thake color book data ante somossa hoyeche" });
+            res.status(500).send({ message: "MongoDB thake  book data ante somossa hoyeche" });
       }
 });
 
