@@ -3,11 +3,11 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const app = express();
 require("dotenv").config();
+const cors = require('cors');
 const PORT = 3000;
 
+app.use(cors());
 app.use(express.json());
-
-console.log(process.env.USER_NAME)
 
 
 const uri = `mongodb://${process.env.USER_NAME}:${process.env.USER_PASS}@cluster0-shard-00-00.gbi1i.mongodb.net:27017,cluster0-shard-00-01.gbi1i.mongodb.net:27017,cluster0-shard-00-02.gbi1i.mongodb.net:27017/?ssl=true&replicaSet=atlas-codyet-shard-0&authSource=admin&appName=Cluster0`;
