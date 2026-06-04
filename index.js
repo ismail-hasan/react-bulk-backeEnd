@@ -1,17 +1,22 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const dns = require("node:dns/promises");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const express = require('express');
 const cors = require('cors');
 require("dotenv").config();
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
 
 const app = express();
 const port = 3000;
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // POST রিকোয়েস্টের বডি রিড করার জন্য (লাগতে পারে)
+app.use(express.json());
 
 // MongoDB URI
-const uri = `mongodb://DemoEPS:fiCN8hJQD79MHJld@cluster0-shard-00-00.gbi1i.mongodb.net:27017,cluster0-shard-00-01.gbi1i.mongodb.net:27017,cluster0-shard-00-02.gbi1i.mongodb.net:27017/?ssl=true&replicaSet=atlas-codyet-shard-0&authSource=admin&appName=Cluster0`;
+// const uri = `mongodb://DemoEPS:fiCN8hJQD79MHJld@cluster0-shard-00-00.gbi1i.mongodb.net:27017,cluster0-shard-00-01.gbi1i.mongodb.net:27017,cluster0-shard-00-02.gbi1i.mongodb.net:27017/?ssl=true&replicaSet=atlas-codyet-shard-0&authSource=admin&appName=Cluster0`;
+
+const uri = "mongodb+srv://DemoEPS:fiCN8hJQD79MHJld@cluster0.gbi1i.mongodb.net/?appName=Cluster0";
 
 const client = new MongoClient(uri, {
       serverApi: {
