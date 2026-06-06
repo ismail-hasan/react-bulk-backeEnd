@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require("dotenv").config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { ObjectId } = require("mongodb");
 
 try {
       const dns = require("node:dns/promises");
@@ -113,18 +114,63 @@ app.get("/countries", async (req, res) => {
             res.status(500).send({ message: "MongoDB thake country ar data ante somossa hoyeche" });
       }
 });
+app.get("/country", async (req, res) => {
+      try {
+            const database = await connectDB();
+            const countryCollection = database.collection("country");
+            const result = await countryCollection.find({}).toArray();
+            res.send(result);
+      } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "MongoDB thake singleCountry ar data ante somossa hoyeche" });
+      }
+});
 
 
 
 
+// ১. সব ডাটা একসাথে দেখার রুট (http://localhost:5001/country)
+app.get("/country", async (req, res) => {
+      try {
+            const database = await connectDB();
+            const countryCollection = database.collection("country");
+
+            // ডাটাবেসের সব ডাটা নিয়ে আসবে
+            const result = await countryCollection.find({}).toArray();
+            res.send(result);
+      } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "সব দেশের ডাটা আনতে সমস্যা হয়েছে।" });
+      }
+});
 
 
+app.get("/country/:id", async (req, res) => {
+      try {
+            const id = req.params.id; // ইউজার ইউআরএল-এ যে আইডি পাঠাবে (যেমন: 652f10b3...)
 
+            const database = await connectDB();
+            const countryCollection = database.collection("country");
 
+            // স্ট্রিং আইডি-কে MongoDB ObjectId-তে রূপান্তর করে কোয়েরি তৈরি
+            const query = { _id: new ObjectId(id) };
 
+            const result = await countryCollection.findOne(query);
 
+            // যদি এই আইডি দিয়ে কোনো ডাটা না পাওয়া যায়
+            if (!result) {
+                  return res.status(404).send({ message: "এই MongoDB ID দিয়ে কোনো দেশের ডাটা খুঁজে পাওয়া যায়নি!" });
+            }
 
+            // ডাটা পাওয়া গেলে রেসপন্স পাঠানো
+            res.send(result);
 
+      } catch (error) {
+            console.error(error);
+            // যদি ইউজার ২৪ অক্ষরের সঠিক আইডি না দিয়ে ভুলভাল কিছু দেয়, তাহলে এই ক্যাচ ব্লকে আসবে
+            res.status(500).send({ message: "আইডির ফরম্যাট ঠিক নেই অথবা ডাটা আনতে সমস্যা হয়েছে।" });
+      }
+});
 
 
 
