@@ -161,8 +161,6 @@ app.get("/country/:id", async (req, res) => {
             if (!result) {
                   return res.status(404).send({ message: "এই MongoDB ID দিয়ে কোনো দেশের ডাটা খুঁজে পাওয়া যায়নি!" });
             }
-
-            // ডাটা পাওয়া গেলে রেসপন্স পাঠানো
             res.send(result);
 
       } catch (error) {
@@ -173,6 +171,50 @@ app.get("/country/:id", async (req, res) => {
 });
 
 
+//////////////////
+
+
+
+app.get("/epsexam", async (req, res) => {
+      try {
+            const database = await connectDB();
+            const epsexamCollection = database.collection("epsexam");
+
+            // ডাটাবেসের সব ডাটা নিয়ে আসবে
+            const result = await epsexamCollection.find({}).toArray();
+            res.send(result);
+      } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "সব দেশের ডাটা আনতে সমস্যা হয়েছে।" });
+      }
+});
+
+
+
+app.get("/epsexam/:modelTestNo", async (req, res) => {
+      try {
+            // আইডি বা মডেল টেস্ট নাম্বারটি নিন
+            const modelTestNo = parseInt(req.params.modelTestNo);
+            console.log(modelTestNo)
+
+            const database = await connectDB();
+            const epsexamCollection = database.collection("epsexam"); // আপনার কালেকশনের নাম দিন
+
+            // এখন আমরা modelTest ফিল্ডটি দিয়ে কুয়েরি করছি
+            const query = { modelTest: modelTestNo };
+
+            const result = await epsexamCollection.findOne(query);
+
+            if (!result) {
+                  return res.status(404).send({ message: "এই মডেল টেস্টটি খুঁজে পাওয়া যায়নি!" });
+            }
+            res.send(result);
+
+      } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "সার্ভারে সমস্যা হয়েছে।" });
+      }
+});
 
 
 
