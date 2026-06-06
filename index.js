@@ -101,6 +101,37 @@ app.get("/book", async (req, res) => {
       }
 });
 
+
+app.get("/countries", async (req, res) => {
+      try {
+            const database = await connectDB();
+            const countriesCollection = database.collection("countries");
+            const result = await countriesCollection.find({}).toArray();
+            res.send(result);
+      } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "MongoDB thake country ar data ante somossa hoyeche" });
+      }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if (process.env.NODE_ENV !== 'production') {
       app.listen(port, '0.0.0.0', () => {
             console.log(`Server is running on port ${port}`);
