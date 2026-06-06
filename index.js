@@ -129,20 +129,20 @@ app.get("/country", async (req, res) => {
 
 
 
-// ১. সব ডাটা একসাথে দেখার রুট (http://localhost:5001/country)
-app.get("/country", async (req, res) => {
-      try {
-            const database = await connectDB();
-            const countryCollection = database.collection("country");
+// // ১. সব ডাটা একসাথে দেখার রুট (http://localhost:5001/country)
+// app.get("/country", async (req, res) => {
+//       try {
+//             const database = await connectDB();
+//             const countryCollection = database.collection("country");
 
-            // ডাটাবেসের সব ডাটা নিয়ে আসবে
-            const result = await countryCollection.find({}).toArray();
-            res.send(result);
-      } catch (error) {
-            console.error(error);
-            res.status(500).send({ message: "সব দেশের ডাটা আনতে সমস্যা হয়েছে।" });
-      }
-});
+//             // ডাটাবেসের সব ডাটা নিয়ে আসবে
+//             const result = await countryCollection.find({}).toArray();
+//             res.send(result);
+//       } catch (error) {
+//             console.error(error);
+//             res.status(500).send({ message: "সব দেশের ডাটা আনতে সমস্যা হয়েছে।" });
+//       }
+// });
 
 
 app.get("/country/:id", async (req, res) => {
